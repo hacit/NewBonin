@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.IBinder
 
 class MyService : Service() {
-
+    //Service
     override fun onBind(intent: Intent): IBinder {
         throw UnsupportedOperationException("Not yet Implemented");
     }

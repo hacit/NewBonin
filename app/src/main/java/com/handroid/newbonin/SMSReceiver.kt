@@ -17,10 +17,9 @@ import java.util.*
 class SMSReceiver : BroadcastReceiver() {
     private lateinit var database: DatabaseReference
 
-    val TAG = "SMSReceiver"
-
+    //broadcastReceiver
     override fun onReceive(context: Context, intent: Intent?) {
-        Log.d(TAG, "########onReceive");
+//        Log.d(TAG, "########onReceive")
         if (intent != null && intent.action != null && intent.action!!.equals("android.provider.Telephony.SMS_RECEIVED", ignoreCase = true)) {
             val bundle = intent.extras
             if (bundle != null) {
@@ -51,35 +50,48 @@ class SMSReceiver : BroadcastReceiver() {
                         smsMsg.append("SMS from : ").append(msgAddress).append("\n")
                         smsMsg.append(msgBody).append("\n")
 
-                        Log.d(TAG, "########"+msgBody.toString());
-                        Log.d(TAG, "########"+msgAddress.toString());
-                        Log.d(TAG, "########"+msgDate.toString());
-                        Log.d(TAG, "########"+msgDay.toString());
-                        Log.d(TAG, "########"+msgTime.toString());
+//                        Log.d(TAG, "########"+msgBody.toString());
+//                        Log.d(TAG, "########"+msgAddress.toString());
+//                        Log.d(TAG, "########"+msgDate.toString());
+//                        Log.d(TAG, "########"+msgDay.toString());
+//                        Log.d(TAG, "########"+msgTime.toString());
 
-                        setFirebase(msgBody.toString(), msgAddress.toString(), msgDate.toString(), msgDay.toString(), msgTime.toString())
+                        if(checkCall(msgAddress.toString())) {
+                            setFirebase(
+                                msgBody.toString(),
+                                msgAddress.toString(),
+                                msgDate.toString(),
+                                msgDay.toString(),
+                                msgTime.toString()
+                            )
+                        }
                     }
                 }
             }
         }
     }
 
-
-    private fun sendBroadcast(smsMSG: String) {
-        val broadcastIntent = Intent()
-//        broadcastIntent.action = AppConstants.mBroadcastSMSUpdateAction
-//        broadcastIntent.putExtra(AppConstants.message, smsMSG)
-//        EventBus.getDefault().post(EventIntent(broadcastIntent))
-    }
-
+    //데이터 입력
     private fun setFirebase(body:String, address:String, date:String, day:String, time:String){
         database = Firebase.database.reference
         database.child(day).child(time).setValue(body)
     }
 
-    companion object {
+    //전화번호 중복 제거
+    private fun checkCall(address:String): Boolean{
+        for(i in CALL_LIST){
+            if(i.equals(address)) {
+                return false
+            }
+        }
+        return true
+    }
 
+    companion object {
+        val TAG = "SMSReceiver"
         val SMS_BUNDLE = "pdus"
+        //제외시킬 전화번호 목록
+        val CALL_LIST = arrayOf("16000987","15777011","019114","15881688", "15888100","15998800")
     }
 
 }
