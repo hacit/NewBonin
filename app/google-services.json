@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "926797163962",
+    "project_id": "newbonin",
+    "storage_bucket": "newbonin.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:926797163962:android:f57043e25beab994494183",
+        "android_client_info": {
+          "package_name": "com.handroid.newbonin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "926797163962-o0ranbtc2hlcp6jdjbdbl5kkiljebcgs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQbFQxel6fhl7Boyq96-vJLvEi3xkk6H4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "926797163962-o0ranbtc2hlcp6jdjbdbl5kkiljebcgs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
